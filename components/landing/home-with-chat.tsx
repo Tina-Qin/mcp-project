@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { useState, useRef, useEffect, type CSSProperties } from "react";
+import { useState, useRef, useEffect } from "react";
 import { isToolUIPart, getToolName } from "ai";
 import Image from "next/image";
 import { Package, TrendingUp, Wallet, type LucideIcon } from "lucide-react";
@@ -21,12 +21,6 @@ const transport = new DefaultChatTransport({ api: "/api/chat" });
 
 const ASSISTANT_NAME = "Nina";
 const ASSISTANT_AVATAR = "/nina-avatar.png";
-
-const SUGGESTIONS = [
-  "What RWA products are on sale and how do fees compare?",
-  "Explain risks, redemption rules, and subscription flow for Prime offerings.",
-  "I have a wallet address — can you check my orders and holdings?",
-];
 
 const SKILL_LINKS: {
   id: string;
@@ -58,7 +52,7 @@ function SkillLinksRow() {
   return (
     <div
       className="flex flex-wrap items-center gap-2"
-      aria-label="Related open-source skill repos"
+      aria-label="相关开源 Skill 仓库"
     >
       {SKILL_LINKS.map(({ id, label, href, Icon }) => (
         <a
@@ -180,14 +174,9 @@ export function HomeWithChat() {
       onError: (err) => console.error("[chat]", err),
     });
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatSectionRef = useRef<HTMLElement>(null);
 
   const isStreaming = status === "streaming";
   const hasResults = messages.some((m) => m.role === "assistant");
-
-  const scrollToChat = () => {
-    chatSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -207,184 +196,110 @@ export function HomeWithChat() {
     setInput("");
   };
 
-  const sendSuggestion = (text: string) => {
-    if (isStreaming) return;
-    sendMessage({ text });
-  };
-
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <div className="min-h-0 flex-1 overflow-y-auto pb-44">
+    <div className="flex h-dvh min-h-0 flex-col bg-background text-foreground">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         <Navbar />
         <HeroSection />
         <BifurcationSection />
         <FeaturesSection />
         <TerminalDemo />
         <EcosystemSection />
-
-        <section
-          ref={chatSectionRef}
-          className="scroll-mt-4 border-t border-zinc-800/40 px-4 py-8 sm:px-6"
-        >
-          <div className="mx-auto w-full max-w-6xl space-y-5">
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={scrollToChat}
-                className="text-xs font-medium text-muted-foreground underline decoration-zinc-700 underline-offset-[6px] transition-colors hover:text-primary"
-              >
-                Jump to chat
-              </button>
-            </div>
-
-            {!hasResults && !isStreaming && (
-              <div className="space-y-5">
-                <p className="text-[13px] leading-relaxed text-zinc-400">
-                  <span className="nina-intro-line" style={{ animationDelay: "0ms" }}>
-                    Ask in natural language about Web3 routing, RWA products, or your wallet.
-                  </span>{" "}
-                  <span className="nina-intro-line" style={{ animationDelay: "90ms" }}>
-                    Nina uses{" "}
-                    <span
-                      className="nina-intro-accent"
-                      style={{ "--nina-shimmer-delay": "0.35s" } as CSSProperties}
-                    >
-                      Antalpha Prime MCP
-                    </span>{" "}
-                    for live product data when relevant.
-                  </span>
-                </p>
-                <div className="space-y-2.5">
-                  <p className="text-[11px] font-medium text-zinc-500">Try asking</p>
-                  <div className="flex flex-col items-start gap-2">
-                    {SUGGESTIONS.map((s) => (
-                      <button
-                        key={s}
-                        type="button"
-                        disabled={isStreaming}
-                        className="rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2.5 text-left text-xs leading-snug text-zinc-200 transition-colors hover:border-zinc-700 hover:bg-zinc-800/90 disabled:pointer-events-none disabled:opacity-50"
-                        onClick={() => sendSuggestion(s)}
-                      >
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {messages.length > 0 || isStreaming ? (
-              <div className="nina-glow-frame w-full">
-                <div
-                  className="nina-glow-frame__inner nina-messages-scroll max-h-[min(32vh,17rem)] w-full overflow-y-auto overflow-x-hidden p-3.5 sm:max-h-[min(34vh,18rem)] sm:p-4"
-                  aria-label="Chat messages"
-                >
-                  <div className="space-y-4">
-                    {messages.map((message, msgIndex) => (
-                      <div key={message.id} className="space-y-2">
-                        {message.role === "user"
-                          ? message.parts.map((part, i) =>
-                              part.type === "text" ? (
-                                <div
-                                  key={`${message.id}-u-${i}`}
-                                  className="rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-100"
-                                >
-                                  {part.text}
-                                </div>
-                              ) : null,
-                            )
-                          : null}
-                        {message.role === "assistant" ? (
-                          <div className="flex gap-3">
-                            <Image
-                              src={ASSISTANT_AVATAR}
-                              alt={ASSISTANT_NAME}
-                              width={32}
-                              height={32}
-                              className="mt-0.5 size-8 shrink-0 rounded-full object-cover ring-1 ring-zinc-700/60"
-                            />
-                            <div className="min-w-0 flex-1 space-y-2">
-                              <p className="text-[10px] font-medium text-zinc-500">
-                                {ASSISTANT_NAME}
-                              </p>
-                              {message.parts.map((part, i) => {
-                                if (part.type === "text") {
-                                  let lastTextPartIndex = -1;
-                                  for (let j = message.parts.length - 1; j >= 0; j--) {
-                                    if (message.parts[j].type === "text") {
-                                      lastTextPartIndex = j;
-                                      break;
-                                    }
-                                  }
-                                  const isLastTextPart = i === lastTextPartIndex;
-                                  const isTextStreaming =
-                                    part.state === "streaming" ||
-                                    (isStreaming &&
-                                      msgIndex === messages.length - 1 &&
-                                      isLastTextPart &&
-                                      message.role === "assistant");
-
-                                  return (
-                                    <AssistantTextBubble
-                                      key={`${message.id}-${i}`}
-                                      html={formatMarkdown(part.text)}
-                                      isTextStreaming={isTextStreaming}
-                                    />
-                                  );
-                                }
-                                if (isToolUIPart(part)) {
-                                  return (
-                                    <ToolCallRow
-                                      key={`${message.id}-${i}`}
-                                      name={getToolName(part)}
-                                      state={part.state}
-                                    />
-                                  );
-                                }
-                                return null;
-                              })}
-                            </div>
-                          </div>
-                        ) : null}
-                      </div>
-                    ))}
-
-                    {isStreaming && !hasResults ? (
-                      <p className="text-sm text-zinc-500">Working (may call product APIs)…</p>
-                    ) : null}
-
-                    <div ref={messagesEndRef} className="h-px shrink-0" aria-hidden />
-                  </div>
-                </div>
-              </div>
-            ) : null}
-          </div>
-        </section>
-
         <Footer />
       </div>
 
-      <div className="sticky bottom-0 z-20 shrink-0 border-t border-zinc-800/80 bg-[#09090b]/90 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md supports-backdrop-filter:bg-[#09090b]/70 sm:px-6">
-        <div className="mx-auto mb-3 flex max-w-6xl items-center gap-3">
-          <Image
-            src={ASSISTANT_AVATAR}
-            alt={ASSISTANT_NAME}
-            width={40}
-            height={40}
-            className="size-10 shrink-0 rounded-full object-cover ring-1 ring-zinc-700/80"
-          />
-          <div className="min-w-0">
-            <p className="text-[17px] font-semibold tracking-tight text-zinc-50">
-              {ASSISTANT_NAME}
-            </p>
-            <p className="text-[11px] text-zinc-400">Antalpha RWA assistant</p>
-          </div>
-        </div>
-        <div className="mx-auto w-full max-w-6xl space-y-3">
+      <div className="shrink-0 border-t border-zinc-800/80 bg-[#09090b]/90 backdrop-blur-md supports-backdrop-filter:bg-[#09090b]/70">
+        <div className="mx-auto w-full max-w-6xl px-4 pb-px pt-2 sm:px-6">
+          {messages.length > 0 || isStreaming ? (
+            <div className="nina-glow-frame mb-2 w-full">
+              <div
+                className="nina-glow-frame__inner nina-messages-scroll max-h-[min(32vh,17rem)] w-full overflow-y-auto overflow-x-hidden p-3.5 sm:max-h-[min(34vh,18rem)] sm:p-4"
+                aria-label="对话消息"
+              >
+                <div className="space-y-4">
+                  {messages.map((message, msgIndex) => (
+                    <div key={message.id} className="space-y-2">
+                      {message.role === "user"
+                        ? message.parts.map((part, i) =>
+                            part.type === "text" ? (
+                              <div
+                                key={`${message.id}-u-${i}`}
+                                className="rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-100"
+                              >
+                                {part.text}
+                              </div>
+                            ) : null,
+                          )
+                        : null}
+                      {message.role === "assistant" ? (
+                        <div className="flex gap-3">
+                          <Image
+                            src={ASSISTANT_AVATAR}
+                            alt={ASSISTANT_NAME}
+                            width={32}
+                            height={32}
+                            className="mt-0.5 size-8 shrink-0 rounded-full object-cover ring-1 ring-zinc-700/60"
+                          />
+                          <div className="min-w-0 flex-1 space-y-2">
+                            <p className="text-[10px] font-medium text-zinc-500">
+                              {ASSISTANT_NAME}
+                            </p>
+                            {message.parts.map((part, i) => {
+                              if (part.type === "text") {
+                                let lastTextPartIndex = -1;
+                                for (let j = message.parts.length - 1; j >= 0; j--) {
+                                  if (message.parts[j].type === "text") {
+                                    lastTextPartIndex = j;
+                                    break;
+                                  }
+                                }
+                                const isLastTextPart = i === lastTextPartIndex;
+                                const isTextStreaming =
+                                  part.state === "streaming" ||
+                                  (isStreaming &&
+                                    msgIndex === messages.length - 1 &&
+                                    isLastTextPart &&
+                                    message.role === "assistant");
+
+                                return (
+                                  <AssistantTextBubble
+                                    key={`${message.id}-${i}`}
+                                    html={formatMarkdown(part.text)}
+                                    isTextStreaming={isTextStreaming}
+                                  />
+                                );
+                              }
+                              if (isToolUIPart(part)) {
+                                return (
+                                  <ToolCallRow
+                                    key={`${message.id}-${i}`}
+                                    name={getToolName(part)}
+                                    state={part.state}
+                                  />
+                                );
+                              }
+                              return null;
+                            })}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+
+                  {isStreaming && !hasResults ? (
+                    <p className="text-sm text-zinc-500">正在处理（可能正在调用产品接口）…</p>
+                  ) : null}
+
+                  <div ref={messagesEndRef} className="h-px shrink-0" aria-hidden />
+                </div>
+              </div>
+            </div>
+          ) : null}
+
           {error ? (
             <div
               role="alert"
-              className="flex items-start justify-between gap-3 rounded-lg border border-red-500/35 bg-red-950/50 px-3 py-2 text-sm text-red-100"
+              className="mb-2 flex items-start justify-between gap-3 rounded-lg border border-red-500/35 bg-red-950/50 px-3 py-2 text-sm text-red-100"
             >
               <span className="min-w-0 wrap-break-word">{error.message}</span>
               <button
@@ -392,53 +307,70 @@ export function HomeWithChat() {
                 onClick={() => clearError()}
                 className="shrink-0 text-xs font-medium text-red-200 underline underline-offset-2 hover:text-white"
               >
-                Dismiss
+                关闭
               </button>
             </div>
           ) : null}
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <div className="nina-glow-frame min-w-0 flex-1">
-              <div className="nina-glow-frame__inner flex min-h-11 min-w-0 items-center gap-2 px-3 py-1.5 sm:min-h-12 sm:px-4 sm:py-2">
-                <Input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="e.g. How do I subscribe to RWA products and what are the risks?"
-                  disabled={isStreaming}
-                  className="h-9 min-h-9 flex-1 border-0 bg-transparent px-0 text-sm text-zinc-100 shadow-none placeholder:text-zinc-500 focus-visible:ring-0 sm:h-10 sm:min-h-10"
-                />
-                <Button
-                  type="submit"
-                  disabled={!input.trim() || isStreaming}
-                  className="h-9 shrink-0 rounded-xl bg-zinc-50 px-4 font-semibold text-zinc-950 hover:bg-white sm:h-10 sm:px-5"
-                >
-                  {isStreaming ? "Replying…" : "Send"}
-                </Button>
+
+          <div className="pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-1">
+            <div className="mb-3 flex items-center gap-3">
+              <Image
+                src={ASSISTANT_AVATAR}
+                alt={ASSISTANT_NAME}
+                width={40}
+                height={40}
+                className="size-10 shrink-0 rounded-full object-cover ring-1 ring-zinc-700/80"
+              />
+              <div className="min-w-0">
+                <p className="text-[17px] font-semibold tracking-tight text-zinc-50">
+                  {ASSISTANT_NAME}
+                </p>
+                <p className="text-[11px] text-zinc-400">Antalpha RWA 助手</p>
               </div>
             </div>
-            {messages.length > 0 && !isStreaming ? (
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={handleClear}
-                className="text-zinc-500 hover:bg-zinc-800/80 hover:text-zinc-200"
+            <div className="space-y-3">
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-3 sm:flex-row sm:items-center"
               >
-                Clear chat
-              </Button>
-            ) : null}
-          </form>
-          <SkillLinksRow />
+                <div className="nina-glow-frame min-w-0 flex-1">
+                  <div className="nina-glow-frame__inner flex min-h-11 min-w-0 items-center gap-2 px-3 py-1.5 sm:min-h-12 sm:px-4 sm:py-2">
+                    <Input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder="例如：我想了解在售 RWA 如何买入与风险"
+                      disabled={isStreaming}
+                      className="h-9 min-h-9 flex-1 border-0 bg-transparent px-0 text-sm text-zinc-100 shadow-none placeholder:text-zinc-500 focus-visible:ring-0 sm:h-10 sm:min-h-10"
+                    />
+                    <Button
+                      type="submit"
+                      disabled={!input.trim() || isStreaming}
+                      className="h-9 shrink-0 rounded-xl bg-zinc-50 px-4 font-semibold text-zinc-950 hover:bg-white sm:h-10 sm:px-5"
+                    >
+                      {isStreaming ? "回复中…" : "发送"}
+                    </Button>
+                  </div>
+                </div>
+                {messages.length > 0 && !isStreaming ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={handleClear}
+                    className="text-zinc-500 hover:bg-zinc-800/80 hover:text-zinc-200"
+                  >
+                    清除对话
+                  </Button>
+                ) : null}
+              </form>
+              <SkillLinksRow />
+            </div>
+            <p className="mt-2 pb-1 text-center text-[10px] text-zinc-600">
+              AI SDK · MCP（mcp.prime.antalpha.com）
+            </p>
+          </div>
         </div>
       </div>
-
-      <footer className="shrink-0 px-4 pb-2 pt-1">
-        <p className="text-center text-[10px] text-zinc-600">
-          AI SDK · MCP (mcp.prime.antalpha.com)
-        </p>
-      </footer>
     </div>
   );
 }

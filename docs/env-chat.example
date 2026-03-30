@@ -1,7 +1,11 @@
 # Copy to `.env.local` for local chat API. Patterns in `.gitignore` ignore `.env*`.
 
-# Required for /api/chat (OpenAI-compatible gateway)
+# Required for /api/chat (OpenAI-compatible gateway). Use either:
 NEW_API_KEY=
+# OPENAI_API_KEY=   # same as above; AI SDK default name — either works
+
+# Optional: override gateway base URL (default: newapi.elevatesphere.com)
+# OPENAI_BASE_URL=https://newapi.elevatesphere.com/v1
 
 # Optional overrides (defaults match Antalpha Prime)
 # MCP_PRIME_URL=https://mcp.prime.antalpha.com/mcp

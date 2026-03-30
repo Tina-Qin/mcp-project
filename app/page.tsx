@@ -1,5 +1,5 @@
-import { HomeWithChat } from "@/components/landing/home-with-chat"
+import { HomeWithChat } from "@/components/landing/home-with-chat";
 
 export default function HomePage() {
-  return <HomeWithChat />
+  return <HomeWithChat />;
 }

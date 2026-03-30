@@ -1,6 +1,6 @@
 /**
  * One-shot Antalpha Prime MCP (HTTP+SSE) client.
- * Matches the protocol used by `antalpha-rwa-skill/scripts/rwa_client.py`.
+ * Matches the protocol used by `src/assets/antalpha-rwa-skill/scripts/rwa_client.py`.
  */
 
 function parseSseJsonRpcResult(text: string): unknown {
@@ -35,7 +35,7 @@ async function mcpInitialize(baseUrl: string): Promise<string> {
       params: {
         protocolVersion: "2024-11-05",
         capabilities: {},
-        clientInfo: { name: "mcp-project", version: "1.0" },
+        clientInfo: { name: "my-next-app", version: "1.0" },
       },
       id: 1,
     }),
