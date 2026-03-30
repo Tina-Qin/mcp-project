@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/landing/navbar";
 import { LandingFirstScreen } from "@/components/landing/landing-first-screen";
-import { BifurcationSection } from "@/components/landing/bifurcation-section";
+import { CapabilitiesSection } from "@/components/landing/capabilities-section";
 import { FeaturesSection } from "@/components/landing/features-section";
 import { TerminalDemo } from "@/components/landing/terminal-demo";
 import { EcosystemSection } from "@/components/landing/ecosystem-section";
@@ -11,7 +11,7 @@ export function HomeWithChat() {
     <div className="min-h-dvh bg-background text-foreground">
       <Navbar />
       <LandingFirstScreen />
-      <BifurcationSection />
+      <CapabilitiesSection />
       <FeaturesSection />
       <TerminalDemo />
       <EcosystemSection />
