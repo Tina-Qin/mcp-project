@@ -100,7 +100,7 @@ function PlatformRow({ p }: { p: Platform }) {
   const isWide = !!p.logoWide;
 
   return (
-    <div className="flex min-h-[88px] items-center gap-4 border border-border/40 bg-linear-to-b from-secondary/30 to-background/80 px-4 py-4 transition-colors hover:border-blue-500/40 sm:gap-5 sm:px-5">
+    <div className="flex min-h-[88px] items-center gap-4 bg-linear-to-b from-secondary/30 to-background/80 px-4 py-4 transition-colors sm:gap-5 sm:px-5">
       <div
         className={`flex shrink-0 items-center justify-center ${
           isWide ? "h-12 min-w-28 max-w-36 sm:min-w-32" : "h-12 w-12"
@@ -141,11 +141,8 @@ function PlatformRow({ p }: { p: Platform }) {
 
 export function AgentPlatformsBand() {
   return (
-    <div className="mt-20 border-t border-border/30 pt-16">
+    <div className="mt-20 pt-16">
       <div className="mb-12 text-center">
-        <h3 className="mb-2 font-mono text-sm font-semibold uppercase tracking-widest text-blue-500">
-          Who it&apos;s for
-        </h3>
         <p className="text-xl font-bold text-foreground sm:text-2xl">
           Works with your favorite agent platforms
         </p>
@@ -165,7 +162,7 @@ export function AgentPlatformsBand() {
         {categories.map((cat) => (
           <div
             key={cat.id}
-            className="flex flex-col border border-border/30 bg-card/20 p-6 backdrop-blur-sm sm:p-8"
+            className="flex flex-col bg-card/20 p-6 backdrop-blur-sm sm:p-8"
           >
             <div className="mb-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-500">
               {cat.titleEn}
@@ -183,10 +180,6 @@ export function AgentPlatformsBand() {
           </div>
         ))}
       </div>
-
-      <p className="mt-10 text-center font-mono text-[11px] text-muted-foreground/70">
-        商标与标识归各平台所有。展示名称仅供参考，接入方式以各产品文档为准。
-      </p>
     </div>
   );
 }
