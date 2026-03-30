@@ -66,7 +66,12 @@ export function NinaChatPanel({
   return (
     <div className={cn("w-full min-w-0", className)}>
       <div className={titleRow}>
-        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 lg:justify-start">
+        <div
+          className={cn(
+            "flex flex-wrap items-center justify-center gap-x-3 gap-y-2",
+            align === "split" && "lg:justify-start"
+          )}
+        >
           <h2 className="text-balance text-xl font-medium tracking-tight text-foreground sm:text-2xl md:text-3xl">
             Build your web agent with Antalpha
           </h2>
@@ -86,10 +91,15 @@ export function NinaChatPanel({
       </div>
 
       <div
-        className="nina-chat-yellow-frame rounded-xl border-2 border-yellow-400/95 bg-zinc-950/40 p-3 shadow-[0_0_40px_-8px_rgba(250,204,21,0.35)] sm:p-4 md:p-5"
+        className="rounded-xl bg-zinc-950/30 p-3 sm:p-4 md:p-5"
         aria-label="Skill 安装演示聊天区"
       >
-        <div className="nina-chat-shell nina-chat-shell--compact nina-chat-shell--split w-full">
+        <div
+          className={cn(
+            "nina-chat-shell nina-chat-shell--compact w-full",
+            align === "split" && "nina-chat-shell--split"
+          )}
+        >
           <div className="nina-chat-shell__rainbow" aria-hidden />
           <div className="nina-chat-shell__body">
             <div

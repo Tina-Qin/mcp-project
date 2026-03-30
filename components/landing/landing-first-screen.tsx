@@ -3,7 +3,7 @@
 import { HeroBackground, HeroLead } from "@/components/landing/hero-section";
 import { NinaChatPanel } from "@/components/landing/nina-chat-demo-section";
 
-/** 首屏：左文案 + 右聊天（lg+ 并排），小屏纵向堆叠且尽量一屏内 */
+/** 首屏：上文案 + 下聊天（纵向堆叠，居中，避免左右分栏过窄） */
 export function LandingFirstScreen() {
   return (
     <section
@@ -11,9 +11,11 @@ export function LandingFirstScreen() {
       className="relative min-h-dvh overflow-hidden"
     >
       <HeroBackground />
-      <div className="relative z-10 mx-auto grid min-h-[calc(100dvh-4rem)] max-w-7xl grid-cols-1 content-start gap-8 px-4 pb-8 pt-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-8 xl:gap-12">
-        <HeroLead />
-        <NinaChatPanel align="split" />
+      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-7xl flex-col items-center gap-10 px-4 pb-8 pt-24 sm:gap-12 sm:px-6 sm:pt-28 lg:px-8">
+        <HeroLead variant="centered" />
+        <div className="w-full max-w-3xl lg:max-w-4xl">
+          <NinaChatPanel align="centered" />
+        </div>
       </div>
     </section>
   );
