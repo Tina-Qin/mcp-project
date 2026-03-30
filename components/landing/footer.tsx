@@ -33,7 +33,7 @@ export function Footer() {
           {/* Links */}
           <div className="flex items-center gap-8">
             <Link
-              href="#docs"
+              href="/docs"
               className="font-mono text-sm text-muted-foreground transition-colors hover:text-blue-500"
             >
               Docs

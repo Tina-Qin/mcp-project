@@ -22,7 +22,7 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-8 md:flex">
             <Link
-              href="#docs"
+              href="/docs"
               className="font-mono text-sm text-muted-foreground transition-colors hover:text-blue-500"
             >
               Docs
@@ -63,7 +63,7 @@ export function Navbar() {
           <div className="border-t border-border/30 py-4 md:hidden">
             <div className="flex flex-col gap-4">
               <Link
-                href="#docs"
+                href="/docs"
                 className="font-mono text-sm text-muted-foreground transition-colors hover:text-blue-500"
                 onClick={() => setIsOpen(false)}
               >
