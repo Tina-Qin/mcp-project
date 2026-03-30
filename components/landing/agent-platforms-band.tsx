@@ -1,10 +1,17 @@
 "use client";
 
+import Image from "next/image";
+
 type Platform = {
   id: string;
-  /** Short label shown large (wordmark-style until official logos are added) */
   name: string;
   hint?: string;
+  /** `/public` 下的路径，例如 `/agent-logos/openai.svg` */
+  localLogo?: string;
+  /** 横向字标（如 OpenAI），图标区更宽 */
+  logoWide?: boolean;
+  simpleIconSlug?: string;
+  iconColor?: string;
 };
 
 type AgentCategory = {
@@ -22,8 +29,20 @@ const categories: AgentCategory[] = [
     titleEn: "Personal agents",
     description: "日常对话里查链上、装 Skill，对话即调用。",
     platforms: [
-      { id: "openai", name: "OpenAI", hint: "GPTs · MCP" },
-      { id: "claude-desktop", name: "Claude", hint: "Desktop" },
+      {
+        id: "openai",
+        name: "OpenAI",
+        hint: "GPTs · MCP",
+        localLogo: "/agent-logos/openai.svg",
+        logoWide: true,
+      },
+      {
+        id: "claude-desktop",
+        name: "Claude",
+        hint: "Desktop",
+        simpleIconSlug: "anthropic",
+        iconColor: "ffffff",
+      },
     ],
   },
   {
@@ -32,8 +51,19 @@ const categories: AgentCategory[] = [
     titleEn: "Coding agents",
     description: "在 IDE / 仓库内配置 MCP，用 Router Key 驱动链上能力。",
     platforms: [
-      { id: "claude-code", name: "Claude Code", hint: "Anthropic" },
-      { id: "cursor", name: "Cursor" },
+      {
+        id: "claude-code",
+        name: "Claude Code",
+        hint: "Anthropic",
+        simpleIconSlug: "anthropic",
+        iconColor: "ffffff",
+      },
+      {
+        id: "cursor",
+        name: "Cursor",
+        simpleIconSlug: "cursor",
+        iconColor: "ffffff",
+      },
     ],
   },
   {
@@ -42,11 +72,72 @@ const categories: AgentCategory[] = [
     titleEn: "Orchestration",
     description: "工作流与多 Agent 编排，同一套 antalpha-mcp 端点。",
     platforms: [
-      { id: "openclaw", name: "OpenClaw" },
-      { id: "dify", name: "Dify" },
+      {
+        id: "openclaw",
+        name: "OpenClaw",
+        localLogo: "/agent-logos/openclaw.svg",
+      },
+      {
+        id: "dify",
+        name: "Dify",
+        simpleIconSlug: "dify",
+        iconColor: "ffffff",
+      },
     ],
   },
 ];
+
+function platformLogoSrc(p: Platform): string | null {
+  if (p.localLogo) return p.localLogo;
+  if (p.simpleIconSlug && p.iconColor) {
+    return `https://cdn.simpleicons.org/${p.simpleIconSlug}/${p.iconColor}`;
+  }
+  return null;
+}
+
+function PlatformRow({ p }: { p: Platform }) {
+  const iconSrc = platformLogoSrc(p);
+  const isWide = !!p.logoWide;
+
+  return (
+    <div className="flex min-h-[88px] items-center gap-4 border border-border/40 bg-linear-to-b from-secondary/30 to-background/80 px-4 py-4 transition-colors hover:border-blue-500/40 sm:gap-5 sm:px-5">
+      <div
+        className={`flex shrink-0 items-center justify-center ${
+          isWide ? "h-12 min-w-28 max-w-36 sm:min-w-32" : "h-12 w-12"
+        }`}
+      >
+        {iconSrc ? (
+          <Image
+            src={iconSrc}
+            alt=""
+            width={isWide ? 140 : 48}
+            height={48}
+            className={
+              isWide
+                ? "h-10 w-auto max-h-10 max-w-36 object-contain object-left"
+                : "h-12 w-12 object-contain opacity-95"
+            }
+            unoptimized
+          />
+        ) : (
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-500/30 bg-blue-500/10 font-mono text-lg font-bold text-blue-300">
+            {p.name.slice(0, 2).toUpperCase()}
+          </div>
+        )}
+      </div>
+      <div className="min-w-0 flex-1 text-left">
+        <div className="font-mono text-base font-bold tracking-tight text-foreground sm:text-lg">
+          {p.name}
+        </div>
+        {p.hint ? (
+          <div className="mt-0.5 font-mono text-xs text-muted-foreground">
+            {p.hint}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
 
 export function AgentPlatformsBand() {
   return (
@@ -84,23 +175,9 @@ export function AgentPlatformsBand() {
               {cat.description}
             </p>
 
-            <div className="mt-auto flex flex-col gap-4">
+            <div className="mt-auto flex flex-col gap-3">
               {cat.platforms.map((p) => (
-                <div
-                  key={p.id}
-                  className="flex min-h-[88px] items-center justify-center border border-border/40 bg-linear-to-b from-secondary/30 to-background/80 px-4 py-6 transition-colors hover:border-blue-500/40"
-                >
-                  <div className="text-center">
-                    <div className="font-mono text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                      {p.name}
-                    </div>
-                    {p.hint ? (
-                      <div className="mt-1 font-mono text-muted-foreground text-xs">
-                        {p.hint}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
+                <PlatformRow key={p.id} p={p} />
               ))}
             </div>
           </div>
