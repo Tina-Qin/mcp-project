@@ -232,3 +232,266 @@
   white-space: nowrap;
   animation: typing 2s steps(40, end);
 }
+
+/* —— Nina chat (scheme 2 dock) —— ported from my-next-app —— */
+
+.nina-glow-frame {
+  border-radius: 1.5rem;
+  padding: 1px;
+  background: linear-gradient(
+    125deg,
+    rgba(139, 92, 246, 0.55),
+    rgba(34, 211, 238, 0.4),
+    rgba(232, 121, 249, 0.45),
+    rgba(99, 102, 241, 0.5)
+  );
+  box-shadow:
+    0 0 24px -8px rgba(139, 92, 246, 0.15),
+    0 0 24px -8px rgba(34, 211, 238, 0.1);
+}
+
+.nina-glow-frame__inner {
+  border-radius: calc(1.5rem - 1px);
+  background: linear-gradient(180deg, #131316 0%, #0e0e11 100%);
+}
+
+.nina-messages-scroll {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(63 63 70 / 0.85) transparent;
+}
+
+.nina-messages-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.nina-messages-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nina-messages-scroll::-webkit-scrollbar-thumb {
+  background: rgb(63 63 70 / 0.85);
+  border-radius: 9999px;
+}
+
+@keyframes nina-intro-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes nina-intro-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.nina-intro-line {
+  display: inline;
+  animation: nina-intro-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nina-intro-accent {
+  background-image: linear-gradient(
+    90deg,
+    #a1a1aa 0%,
+    #e4e4e7 22%,
+    #fafafa 50%,
+    #e4e4e7 78%,
+    #a1a1aa 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: nina-intro-shimmer 5s ease-in-out infinite;
+  animation-delay: var(--nina-shimmer-delay, 0.55s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nina-intro-line {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .nina-intro-accent {
+    animation: none;
+    background: none;
+    color: #d4d4d8;
+    -webkit-text-fill-color: #d4d4d8;
+  }
+}
+
+.nina-cyber-bubble {
+  transition:
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.nina-cyber-bubble--active {
+  box-shadow:
+    0 0 28px -8px rgba(139, 92, 246, 0.45),
+    0 0 36px -12px rgba(34, 211, 238, 0.22),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  animation: nina-cyber-border-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes nina-cyber-border-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 24px -10px rgba(139, 92, 246, 0.38),
+      0 0 32px -14px rgba(34, 211, 238, 0.18),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 32px -6px rgba(167, 139, 250, 0.52),
+      0 0 40px -10px rgba(34, 211, 238, 0.28),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  }
+}
+
+.nina-cyber-scanline {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.11) 2px,
+    rgba(0, 0, 0, 0.11) 3px
+  );
+  opacity: 0.5;
+}
+
+.nina-cyber-scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.07) 45%,
+    rgba(167, 139, 250, 0.06) 55%,
+    transparent 100%
+  );
+  animation: nina-cyber-scan-sweep 2.8s linear infinite;
+}
+
+@keyframes nina-cyber-scan-sweep {
+  0% {
+    transform: translateY(-102%);
+    opacity: 0.35;
+  }
+  40% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translateY(102%);
+    opacity: 0.35;
+  }
+}
+
+.nina-cyber-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.nina-cyber-markdown--stream {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12.5px;
+  letter-spacing: -0.02em;
+  text-shadow:
+    0 0 20px rgba(167, 139, 250, 0.12),
+    0 0 1px rgba(255, 255, 255, 0.08);
+  animation: nina-cyber-text-flicker 4.5s ease-in-out infinite;
+}
+
+@keyframes nina-cyber-text-flicker {
+  0%,
+  100% {
+    filter: none;
+  }
+  48% {
+    filter: none;
+  }
+  50% {
+    filter: drop-shadow(0.4px 0 0 rgba(34, 211, 238, 0.25)) drop-shadow(-0.4px 0 0 rgba(232, 121, 249, 0.2));
+  }
+  52% {
+    filter: none;
+  }
+}
+
+.nina-cyber-cursor-wrap {
+  display: inline;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.nina-cyber-cursor {
+  display: inline-block;
+  width: 0.38em;
+  height: 1.05em;
+  margin-left: 1px;
+  vertical-align: -0.12em;
+  border-radius: 1px;
+  background: linear-gradient(180deg, #c4b5fd 0%, #22d3ee 100%);
+  box-shadow:
+    0 0 12px rgba(167, 139, 250, 0.85),
+    0 0 4px rgba(34, 211, 238, 0.5);
+  animation: nina-cyber-cursor-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes nina-cyber-cursor-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nina-cyber-bubble--active {
+    animation: none;
+  }
+
+  .nina-cyber-scanline::after {
+    animation: none;
+  }
+
+  .nina-cyber-markdown--stream {
+    animation: none;
+  }
+
+  .nina-cyber-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}

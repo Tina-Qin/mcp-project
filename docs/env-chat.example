@@ -1,0 +1,11 @@
+# Copy to `.env.local` for local chat API. Patterns in `.gitignore` ignore `.env*`.
+
+# Required for /api/chat (OpenAI-compatible gateway)
+NEW_API_KEY=
+
+# Optional overrides (defaults match Antalpha Prime)
+# MCP_PRIME_URL=https://mcp.prime.antalpha.com/mcp
+# MCP_WEB3_SKILLS_URL=https://mcp-skills.prime.antalpha.com/mcp
+
+# Comma-separated skill folders for system prompt (see lib/load-skill.ts)
+# CHAT_AGENT_SKILLS=antalpha-rwa
