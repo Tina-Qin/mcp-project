@@ -245,3 +245,66 @@
     0 0 48px rgba(217, 70, 239, 0.35);
   animation: af-cyber-send-flash 0.48s ease-out;
 }
+
+/* Rounded shell + top rainbow rail (Gemini-style landing) */
+.nina-chat-shell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background: linear-gradient(180deg, rgb(24 24 27 / 0.96), rgb(9 9 11 / 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.nina-chat-shell__rainbow {
+  height: 2px;
+  width: 100%;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    #6366f1,
+    #8b5cf6,
+    #d946ef,
+    #f97316,
+    #eab308,
+    #22c55e,
+    #06b6d4,
+    #3b82f6
+  );
+  opacity: 0.92;
+}
+
+.nina-chat-shell__body {
+  padding: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .nina-chat-shell__body {
+    padding: 0.625rem 0.75rem 0.75rem;
+  }
+}
+
+/* Inner demo: calmer border; shorter + wider layout on landing */
+.nina-chat-shell .af-cyber-chat-window {
+  border-radius: 1rem;
+  animation: none;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background:
+    linear-gradient(#05060a, #05060a) padding-box,
+    linear-gradient(135deg, rgba(92, 240, 255, 0.22), rgba(217, 70, 239, 0.14)) border-box;
+  flex: none;
+  height: 280px;
+}
+
+@media (max-width: 1023px) {
+  .nina-chat-shell .af-cyber-chat-window {
+    height: auto;
+    min-height: 200px;
+    max-height: min(260px, 44vh);
+  }
+}

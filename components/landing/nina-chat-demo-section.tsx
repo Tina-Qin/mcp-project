@@ -54,40 +54,47 @@ export function NinaChatDemoSection() {
       id="nina-demo"
       className="relative border-t border-border/30 py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center sm:justify-start">
-          <h2 className="text-balance text-xl font-medium tracking-normal text-foreground [word-spacing:0.18em] sm:text-2xl md:text-[1.625rem] md:leading-snug">
-            Build your web agent with Antalpha
-          </h2>
-          <svg
-            aria-hidden
-            className="h-6 w-6 shrink-0 text-muted-foreground sm:h-7 sm:w-7"
-            fill="none"
-            stroke="currentColor"
-            strokeLinejoin="round"
-            strokeWidth="1.35"
-            viewBox="0 0 24 24"
-          >
-            <title>Sparkle</title>
-            <path d="M12 2l1.2 7.3L21 11l-7.8 1.7L12 21l-1.2-8.3L3 11l7.8-1.7L12 2Z" />
-          </svg>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 flex flex-col items-center text-center">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+            <h2 className="text-balance text-2xl font-medium tracking-tight text-foreground sm:text-3xl md:text-4xl">
+              Build your web agent with Antalpha
+            </h2>
+            <svg
+              aria-hidden
+              className="h-7 w-7 shrink-0 text-blue-400/75 sm:h-8 sm:w-8"
+              fill="none"
+              stroke="currentColor"
+              strokeLinejoin="round"
+              strokeWidth="1.35"
+              viewBox="0 0 24 24"
+            >
+              <title>Sparkle</title>
+              <path d="M12 2l1.2 7.3L21 11l-7.8 1.7L12 21l-1.2-8.3L3 11l7.8-1.7L12 2Z" />
+            </svg>
+          </div>
         </div>
 
-        <div
-          className="w-full"
-          style={{
-            filter:
-              "drop-shadow(0 25px 50px rgba(92, 240, 255, 0.12)) drop-shadow(0 8px 32px rgba(217, 70, 239, 0.08))",
-          }}
-        >
-          <CyberMcpChatDemo />
+        <div className="nina-chat-shell w-full">
+          <div className="nina-chat-shell__rainbow" aria-hidden />
+          <div className="nina-chat-shell__body">
+            <div
+              className="w-full"
+              style={{
+                filter:
+                  "drop-shadow(0 12px 28px rgba(92, 240, 255, 0.08)) drop-shadow(0 4px 16px rgba(217, 70, 239, 0.06))",
+              }}
+            >
+              <CyberMcpChatDemo />
+            </div>
+          </div>
         </div>
 
-        <div className="mt-6 flex justify-center sm:justify-start">
+        <div className="mt-8 flex justify-center">
           <SkillLinksRow />
         </div>
 
-        <p className="mt-6 text-center text-[11px] text-muted-foreground sm:text-left">
+        <p className="mt-6 text-center text-[11px] text-muted-foreground">
           AI SDK · MCP（mcp.prime.antalpha.com）· 演示动画，非实时对话
         </p>
       </div>
