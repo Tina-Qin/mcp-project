@@ -293,7 +293,7 @@ function ChatBlock(props: { variant: BubbleVariant; text: string; showCursor?: b
             <>
               <Image
                 alt="Nina"
-                className="h-5 w-5 shrink-0 rounded-xs border border-[#5cf0ff]/50 object-cover shadow-[0_0_10px_rgba(92,240,255,0.35)]"
+                className="h-5 w-5 shrink-0 rounded-xs object-cover ring-1 ring-white/10"
                 height={20}
                 src={NINA_AVATAR}
                 width={20}

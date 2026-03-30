@@ -50,7 +50,7 @@ function SkillLinksRow() {
 
 type NinaChatPanelAlign = "centered" | "split";
 
-/** 赛博聊天 + Skill pills + 黄框；`split` 时标题在大屏与左侧文案对齐 */
+/** 赛博聊天 + Skill pills；`split` 时标题在大屏与左侧文案对齐 */
 export function NinaChatPanel({
   align = "centered",
   className,
@@ -90,33 +90,19 @@ export function NinaChatPanel({
         </div>
       </div>
 
-      <div
-        className="rounded-xl bg-zinc-950/30 p-3 sm:p-4 md:p-5"
-        aria-label="Skill 安装演示聊天区"
-      >
+      <div className="w-full space-y-4 sm:space-y-5" aria-label="Skill 安装演示聊天区">
         <div
           className={cn(
             "nina-chat-shell nina-chat-shell--compact w-full",
             align === "split" && "nina-chat-shell--split"
           )}
         >
-          <div className="nina-chat-shell__rainbow" aria-hidden />
-          <div className="nina-chat-shell__body">
-            <div
-              className="w-full"
-              style={{
-                filter:
-                  "drop-shadow(0 12px 28px rgba(92, 240, 255, 0.08)) drop-shadow(0 4px 16px rgba(217, 70, 239, 0.06))",
-              }}
-            >
-              <CyberMcpChatDemo />
-            </div>
-          </div>
+          <CyberMcpChatDemo />
         </div>
 
         <div
           className={cn(
-            "mt-4 flex sm:mt-5",
+            "flex",
             align === "split" ? "justify-center lg:justify-start" : "justify-center"
           )}
         >
@@ -125,7 +111,7 @@ export function NinaChatPanel({
 
         <p
           className={cn(
-            "mt-3 text-[11px] text-muted-foreground sm:mt-4",
+            "text-[11px] text-muted-foreground",
             align === "split" ? "text-center lg:text-left" : "text-center"
           )}
         >
