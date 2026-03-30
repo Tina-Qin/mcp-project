@@ -308,3 +308,29 @@
     max-height: min(260px, 44vh);
   }
 }
+
+/* Landing above-the-fold: shorter chat so hero + demo fit in one viewport */
+.nina-chat-shell--compact .af-cyber-chat-window {
+  height: min(200px, 30vh);
+}
+
+@media (max-width: 1023px) {
+  .nina-chat-shell--compact .af-cyber-chat-window {
+    height: auto;
+    min-height: 140px;
+    max-height: min(200px, 30vh);
+  }
+}
+
+@media (max-height: 720px) {
+  .nina-chat-shell--compact .af-cyber-chat-window {
+    height: min(160px, 26vh);
+  }
+}
+
+/* 首屏右栏：与左侧并排时略增高聊天区 */
+@media (min-width: 1024px) {
+  .nina-chat-shell--split .af-cyber-chat-window {
+    height: min(240px, 42vh);
+  }
+}

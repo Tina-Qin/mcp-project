@@ -25,75 +25,51 @@ type ChatDemoScenario = {
 
 const CHAT_SCENARIOS: ChatDemoScenario[] = [
   {
-    id: "q1-products",
-    headerStripe: "PRODUCTS · LIVE LIST",
-    userPrompt: "介绍一下在售产品信息。",
+    id: "s1-install",
+    headerStripe: "SKILL · INSTALL",
+    userPrompt: "我想给自己的 Agent 装上 antalpha-rwa-skill，要怎么操作？",
     assistantLines: [
-      "目前在售的是 Fixed_Yield_7D（7 天固定收益）：RWA 固定收益类，募集中；以太坊主网 USDT；预期年化 8%，单利；最低 10 USDT、单人最高 10,000 USDT；认购窗口见产品页/公告，起息为认购后 T+1，到期 T+1 自动回款，不可提前赎回。底层为 BTC 超额抵押类机构贷款。",
+      "推荐两步：① 打开 GitHub 上的 `antalpha-rwa-skill` 仓库，按 README 把技能包加入你的 Agents / Cursor 技能列表；② 或在客户端接入官方 MCP（mcp.prime.antalpha.com），启用 `antalpha-rwa` 后保存并重载 Agent。装好后你的助理就能按 SKILL 约定调用 RWA 相关能力。",
     ],
   },
   {
-    id: "q2-subscribe",
-    headerStripe: "SUBSCRIBE · BUY",
-    userPrompt: "我想了解如何买入或认购？",
+    id: "s2-mcp-only",
+    headerStripe: "MCP · CONNECT",
+    userPrompt: "不想拷仓库，只用 MCP 可以吗？",
     assistantLines: [
-      "认购步骤：① 使用 MetaMask、imToken、Trust Wallet 等自托管钱包准备 USDT（ERC-20）；② 确认金额在 10～10,000 USDT 之间；③ 向官方公布的产品收款地址转入 USDT；④ 链上确认到账即视为认购成功；⑤ 到期后 T+1 本金+收益原路退回您的转账地址。请勿从交易所直接转同一笔认购，以免回款地址不一致导致资金风险。",
+      "可以。配置 MCP 指向 `mcp.prime.antalpha.com`，在可用技能里勾选 `antalpha-rwa`，保存后重载即可；无需本地 clone，工具与约定仍以官方 SKILL 为准。",
     ],
   },
   {
-    id: "q3-cex",
-    headerStripe: "WALLET · EXCHANGE",
-    userPrompt: "可以用交易所充值地址认购吗？",
+    id: "s3-why",
+    headerStripe: "SKILL · HIGHLIGHT",
+    userPrompt: "为什么先装 antalpha-rwa-skill？",
     assistantLines: [
-      "不建议。到期回款会打到您转出 USDT 的钱包地址；交易所充值地址常变动或不等于您个人控制地址，可能导致无法收到回款。请使用自托管钱包并自行保管好私钥/助记词。",
+      "这是我们为 RWA 固收与链上认购场景主推的开源 Skill：把产品说明、认购与风控要点封装成 Agent 可调用的能力，和本站 MCP 一致，最适合快速搭一个「会讲 RWA」的 Web Agent。",
     ],
   },
   {
-    id: "q4-limits",
-    headerStripe: "LIMITS · AMOUNT",
-    userPrompt: "投资金额有什么限制？",
+    id: "s4-repo",
+    headerStripe: "GITHUB · REPO",
+    userPrompt: "仓库地址发我一下。",
     assistantLines: [
-      "单笔/单人维度以产品规则为准：最低 10 USDT，最高 10,000 USDT；低于下限可能不计入有效认购，超出上限部分通常不计息或不按产品规则计息，请以最新产品说明为准。",
+      "开源地址：`https://github.com/AntalphaAI/antalpha-rwa-skill`。建议 Star 后按文档安装；页面下方也有 antalpha-rwa-skill 快捷入口，可一键跳到仓库开始装。",
     ],
   },
   {
-    id: "q5-address",
-    headerStripe: "ADDRESS · USDT",
-    userPrompt: "转账要转到哪个地址？",
+    id: "s5-troubleshoot",
+    headerStripe: "AGENT · RELOAD",
+    userPrompt: "装好了但对话里没反应？",
     assistantLines: [
-      "请仅使用官方渠道（官网、App 内产品页或客服确认）公布的 USDT（以太坊主网）收款地址。向错误网络或非官方地址转账可能导致资产损失；转账前务必核对网络 = 以太坊主网、代币 = USDT。",
+      "先确认技能已写入 Agent 配置并已保存；若走 MCP，检查端点与网络。仍无工具时，重启客户端或重载 Agent，并核对技能 ID 是否为 `antalpha-rwa`。",
     ],
   },
   {
-    id: "q6-confirm",
-    headerStripe: "ORDER · CONFIRM",
-    userPrompt: "怎么知道认购成功了？",
+    id: "s6-more-skills",
+    headerStripe: "SKILLS · ECOSYSTEM",
+    userPrompt: "除了 RWA，还能装别的 Skill 吗？",
     assistantLines: [
-      "在区块浏览器上查看您的转账：交易成功且 USDT 已到账产品收款地址，即链上认购完成。您也可以把您的钱包地址提供给客服或助理，协助核对订单/到账情况（若系统提供查询功能）。",
-    ],
-  },
-  {
-    id: "q7-schedule",
-    headerStripe: "SCHEDULE · T+1",
-    userPrompt: "起息和到期时间怎么算？",
-    assistantLines: [
-      "以产品条款为准：一般为认购截止后按 T+1 起息，并有明确到期日；本示例产品中起息、到期、认购起止日期以页面展示或最新公告为准，投资前请再次确认 UTC+8 时间。",
-    ],
-  },
-  {
-    id: "q8-redeem",
-    headerStripe: "REDEEM · MATURITY",
-    userPrompt: "到期怎么赎回？能提前卖吗？",
-    assistantLines: [
-      "不支持提前赎回；产品到期后，通常在 T+1 自动将本金+收益退回至您认购时使用的原钱包地址，一般无需额外操作。若长时间未到账，请用交易哈希与官方支持联系排查。",
-    ],
-  },
-  {
-    id: "q9-yield",
-    headerStripe: "YIELD · APR",
-    userPrompt: "8% 年化具体怎么算？",
-    assistantLines: [
-      "产品为单利，计息基准常见为 ACT/365（按实际天数/365）。实际收益以持有天数、认购本金（在有效区间内）及最终兑付规则为准，请以协议与兑付通知为准。",
+      "可以。同一套方式可叠加 web3-trader、wallet-balance 等开源 Skill；若你的场景以 RWA 为主，仍建议优先装好 antalpha-rwa-skill，再按需扩展。",
     ],
   },
 ];

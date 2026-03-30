@@ -1,5 +1,6 @@
 import { Package, TrendingUp, Wallet, type LucideIcon } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { CyberMcpChatDemo } from "./cyber-mcp-chat-demo";
 
 const SKILL_LINKS: {
@@ -47,35 +48,48 @@ function SkillLinksRow() {
   );
 }
 
-/** AgentFi / www 同款：赛博聊天演示 + Skill pills，置于 Ecosystem 下方 */
-export function NinaChatDemoSection() {
-  return (
-    <section
-      id="nina-demo"
-      className="relative border-t border-border/30 py-20 sm:py-24"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 flex flex-col items-center text-center">
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
-            <h2 className="text-balance text-2xl font-medium tracking-tight text-foreground sm:text-3xl md:text-4xl">
-              Build your web agent with Antalpha
-            </h2>
-            <svg
-              aria-hidden
-              className="h-7 w-7 shrink-0 text-blue-400/75 sm:h-8 sm:w-8"
-              fill="none"
-              stroke="currentColor"
-              strokeLinejoin="round"
-              strokeWidth="1.35"
-              viewBox="0 0 24 24"
-            >
-              <title>Sparkle</title>
-              <path d="M12 2l1.2 7.3L21 11l-7.8 1.7L12 21l-1.2-8.3L3 11l7.8-1.7L12 2Z" />
-            </svg>
-          </div>
-        </div>
+type NinaChatPanelAlign = "centered" | "split";
 
-        <div className="nina-chat-shell w-full">
+/** 赛博聊天 + Skill pills + 黄框；`split` 时标题在大屏与左侧文案对齐 */
+export function NinaChatPanel({
+  align = "centered",
+  className,
+}: {
+  align?: NinaChatPanelAlign;
+  className?: string;
+}) {
+  const titleRow =
+    align === "split"
+      ? "mb-4 flex flex-col items-center text-center sm:mb-5 lg:items-start lg:text-left"
+      : "mb-4 flex flex-col items-center text-center sm:mb-5";
+
+  return (
+    <div className={cn("w-full min-w-0", className)}>
+      <div className={titleRow}>
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 lg:justify-start">
+          <h2 className="text-balance text-xl font-medium tracking-tight text-foreground sm:text-2xl md:text-3xl">
+            Build your web agent with Antalpha
+          </h2>
+          <svg
+            aria-hidden
+            className="h-7 w-7 shrink-0 text-blue-400/75 sm:h-8 sm:w-8"
+            fill="none"
+            stroke="currentColor"
+            strokeLinejoin="round"
+            strokeWidth="1.35"
+            viewBox="0 0 24 24"
+          >
+            <title>Sparkle</title>
+            <path d="M12 2l1.2 7.3L21 11l-7.8 1.7L12 21l-1.2-8.3L3 11l7.8-1.7L12 2Z" />
+          </svg>
+        </div>
+      </div>
+
+      <div
+        className="nina-chat-yellow-frame rounded-xl border-2 border-yellow-400/95 bg-zinc-950/40 p-3 shadow-[0_0_40px_-8px_rgba(250,204,21,0.35)] sm:p-4 md:p-5"
+        aria-label="Skill 安装演示聊天区"
+      >
+        <div className="nina-chat-shell nina-chat-shell--compact nina-chat-shell--split w-full">
           <div className="nina-chat-shell__rainbow" aria-hidden />
           <div className="nina-chat-shell__body">
             <div
@@ -90,13 +104,34 @@ export function NinaChatDemoSection() {
           </div>
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div
+          className={cn(
+            "mt-4 flex sm:mt-5",
+            align === "split" ? "justify-center lg:justify-start" : "justify-center"
+          )}
+        >
           <SkillLinksRow />
         </div>
 
-        <p className="mt-6 text-center text-[11px] text-muted-foreground">
-          AI SDK · MCP（mcp.prime.antalpha.com）· 演示动画，非实时对话
+        <p
+          className={cn(
+            "mt-3 text-[11px] text-muted-foreground sm:mt-4",
+            align === "split" ? "text-center lg:text-left" : "text-center"
+          )}
+        >
+          AI SDK · MCP（mcp.prime.antalpha.com）· 演示动画（Skill 安装引导），非实时对话
         </p>
+      </div>
+    </div>
+  );
+}
+
+/** 独立区块版（整宽居中）；首页首屏请用 `LandingFirstScreen` */
+export function NinaChatDemoSection() {
+  return (
+    <section className="relative shrink-0 border-t border-border/30 pb-6 pt-3 sm:pb-8 sm:pt-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <NinaChatPanel align="centered" />
       </div>
     </section>
   );
