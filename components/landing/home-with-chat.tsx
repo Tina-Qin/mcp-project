@@ -124,13 +124,21 @@ function AssistantTextBubble({
   );
 }
 
-function ToolCallRow({ name, state }: { name: string; state: ToolState }) {
+function ToolCallRow({
+  name,
+  state,
+}: {
+  name: string;
+  state: ToolState | string;
+}) {
   const stateLabel =
     state === "output-available"
       ? "completed"
       : state === "input-available"
         ? "running"
-        : "loading";
+        : typeof state === "string"
+          ? state
+          : "loading";
 
   return (
     <div className="my-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-xs text-zinc-500">
@@ -166,7 +174,11 @@ function formatMarkdown(text: string): string {
 
 export function HomeWithChat() {
   const [input, setInput] = useState("");
-  const { messages, setMessages, sendMessage, status } = useChat({ transport });
+  const { messages, setMessages, sendMessage, status, error, clearError } =
+    useChat({
+      transport,
+      onError: (err) => console.error("[chat]", err),
+    });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatSectionRef = useRef<HTMLElement>(null);
 
@@ -190,6 +202,7 @@ export function HomeWithChat() {
   };
 
   const handleClear = () => {
+    clearError();
     setMessages([]);
     setInput("");
   };
@@ -368,6 +381,21 @@ export function HomeWithChat() {
           </div>
         </div>
         <div className="mx-auto w-full max-w-6xl space-y-3">
+          {error ? (
+            <div
+              role="alert"
+              className="flex items-start justify-between gap-3 rounded-lg border border-red-500/35 bg-red-950/50 px-3 py-2 text-sm text-red-100"
+            >
+              <span className="min-w-0 wrap-break-word">{error.message}</span>
+              <button
+                type="button"
+                onClick={() => clearError()}
+                className="shrink-0 text-xs font-medium text-red-200 underline underline-offset-2 hover:text-white"
+              >
+                Dismiss
+              </button>
+            </div>
+          ) : null}
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-3 sm:flex-row sm:items-center"
