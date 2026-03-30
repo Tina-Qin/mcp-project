@@ -83,28 +83,33 @@ export async function POST(req: Request) {
     .filter(Boolean);
   const skillNames = envSkills?.length ? envSkills : DEFAULT_SKILLS;
   const skillBlocks = await loadAgentsSkills(skillNames);
+  const refBlocks = await loadSkillReferences(skillNames);
   const baseSystem = `Your name is Nina. You are an assistant for Antalpha Prime RWA (on-chain real-world-asset style) products and general Web3 questions.
 
 **Products & guidance**
 - When the user asks about products, what's on sale, rates, "介绍一下产品", 在售产品, or similar: call **list-products** with a short **context** string summarizing their question, then summarize tool output in clear markdown (use tables when comparing multiple products). If the tool returns empty, say so and suggest they try again later.
 - If they share an Ethereum address (0x...) and want order status: use **query-orders-by-address** with that address.
 - Guide step by step: prefer self-custody wallets (not exchange deposit addresses), USDT on Ethereum per product rules, risks (returns not guaranteed, funds typically locked until maturity), and never ask for private keys or seed phrases.
-- For payment links / subscribe flows, follow the SKILL.md instructions (e.g. local \`python3 scripts/rwa_client.py subscribe\` paths under the project's \`assets/antalpha-rwa-skill/\`).
+- For payment links / subscribe flows, follow the SKILL.md instructions (e.g. local \`python3 scripts/rwa_client.py subscribe\` under \`assets/antalpha-rwa-skill/scripts/\`).
 
 **Other tools**
 - Use remaining MCP tools when the user asks for token lists or other supported Web3 lookups.
 
 If a tool fails or returns no data, say so clearly.
 Always respond in the same language the user uses.`;
-  const system =
-    skillBlocks.length > 0
-      ? `${baseSystem}
 
----
-The following project SKILL.md instructions also apply:
-
-${skillBlocks.join("\n\n")}`
-      : baseSystem;
+  const systemParts: string[] = [baseSystem];
+  if (skillBlocks.length > 0) {
+    systemParts.push(
+      `---\nThe following project SKILL.md instructions also apply:\n\n${skillBlocks.join("\n\n")}`,
+    );
+  }
+  if (refBlocks.length > 0) {
+    systemParts.push(
+      `---\nThe following reference documents (FAQ, flows, MCP config) also apply:\n\n${refBlocks.join("\n\n")}`,
+    );
+  }
+  const system = systemParts.join("\n\n");
 
   const result = streamText({
     model: provider.chat("claude-opus-4-6"),

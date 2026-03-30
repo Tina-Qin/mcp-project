@@ -4,10 +4,10 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useState, useRef, useEffect, type CSSProperties } from "react";
 import { isToolUIPart, getToolName } from "ai";
+import Image from "next/image";
 import { Package, TrendingUp, Wallet, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/landing/navbar";
 import { HeroSection } from "@/components/landing/hero-section";
@@ -20,6 +20,7 @@ import { Footer } from "@/components/landing/footer";
 const transport = new DefaultChatTransport({ api: "/api/chat" });
 
 const ASSISTANT_NAME = "Nina";
+const ASSISTANT_AVATAR = "/nina-avatar.png";
 
 const SUGGESTIONS = [
   "What RWA products are on sale and how do fees compare?",
@@ -282,12 +283,13 @@ export function HomeWithChat() {
                           : null}
                         {message.role === "assistant" ? (
                           <div className="flex gap-3">
-                            <Avatar className="mt-0.5 size-8 shrink-0 ring-1 ring-zinc-700/60">
-                              <AvatarImage src="/nina-avatar.png" alt={ASSISTANT_NAME} />
-                              <AvatarFallback className="bg-violet-950 text-xs text-zinc-200">
-                                N
-                              </AvatarFallback>
-                            </Avatar>
+                            <Image
+                              src={ASSISTANT_AVATAR}
+                              alt={ASSISTANT_NAME}
+                              width={32}
+                              height={32}
+                              className="mt-0.5 size-8 shrink-0 rounded-full object-cover ring-1 ring-zinc-700/60"
+                            />
                             <div className="min-w-0 flex-1 space-y-2">
                               <p className="text-[10px] font-medium text-zinc-500">
                                 {ASSISTANT_NAME}
@@ -351,10 +353,13 @@ export function HomeWithChat() {
 
       <div className="sticky bottom-0 z-20 shrink-0 border-t border-zinc-800/80 bg-[#09090b]/90 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md supports-backdrop-filter:bg-[#09090b]/70 sm:px-6">
         <div className="mx-auto mb-3 flex max-w-6xl items-center gap-3">
-          <Avatar className="size-10 shrink-0 ring-1 ring-zinc-700/80">
-            <AvatarImage src="/nina-avatar.png" alt={ASSISTANT_NAME} />
-            <AvatarFallback className="bg-violet-950 text-sm text-zinc-200">N</AvatarFallback>
-          </Avatar>
+          <Image
+            src={ASSISTANT_AVATAR}
+            alt={ASSISTANT_NAME}
+            width={40}
+            height={40}
+            className="size-10 shrink-0 rounded-full object-cover ring-1 ring-zinc-700/80"
+          />
           <div className="min-w-0">
             <p className="text-[17px] font-semibold tracking-tight text-zinc-50">
               {ASSISTANT_NAME}

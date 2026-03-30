@@ -20,6 +20,20 @@ const SKILL_REFERENCE_PATHS: Record<string, string[]> = {
       "references",
       "FAQ.md",
     ),
+    join(
+      process.cwd(),
+      "assets",
+      "antalpha-rwa-skill",
+      "references",
+      "INVESTMENT_FLOW.md",
+    ),
+    join(
+      process.cwd(),
+      "assets",
+      "antalpha-rwa-skill",
+      "references",
+      "mcp.json",
+    ),
   ],
 };
 
