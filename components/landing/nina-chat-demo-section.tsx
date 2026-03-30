@@ -72,12 +72,12 @@ export function NinaChatPanel({
             align === "split" && "lg:justify-start"
           )}
         >
-          <h2 className="text-balance text-xl font-medium tracking-tight text-foreground sm:text-2xl md:text-3xl">
-            Build your web agent with Antalpha
+          <h2 className="text-balance text-lg font-medium tracking-tight text-foreground sm:text-xl md:text-2xl">
+            Build your agent with Antalpha AI
           </h2>
           <svg
             aria-hidden
-            className="h-7 w-7 shrink-0 text-blue-400/75 sm:h-8 sm:w-8"
+            className="h-6 w-6 shrink-0 text-blue-400/75 sm:h-7 sm:w-7"
             fill="none"
             stroke="currentColor"
             strokeLinejoin="round"
