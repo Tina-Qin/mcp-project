@@ -6,9 +6,9 @@ type Platform = {
   id: string;
   name: string;
   hint?: string;
-  /** `/public` 下的路径，例如 `/agent-logos/openai.svg` */
+  /** Path under `/public`, e.g. `/agent-logos/openai.svg` */
   localLogo?: string;
-  /** 横向字标（如 OpenAI），图标区更宽 */
+  /** Wide wordmark (e.g. OpenAI); wider icon area */
   logoWide?: boolean;
   simpleIconSlug?: string;
   iconColor?: string;
@@ -25,9 +25,10 @@ type AgentCategory = {
 const categories: AgentCategory[] = [
   {
     id: "personal",
-    title: "个人智能体",
+    title: "Everyday chat",
     titleEn: "Personal agents",
-    description: "日常对话里查链上、装 Skill，对话即调用。",
+    description:
+      "Query on-chain data in everyday chat, install Skills, invoke from conversation.",
     platforms: [
       {
         id: "openai",
@@ -47,9 +48,10 @@ const categories: AgentCategory[] = [
   },
   {
     id: "coding",
-    title: "编程智能体",
+    title: "IDE & repository",
     titleEn: "Coding agents",
-    description: "在 IDE / 仓库内配置 MCP，用 Router Key 驱动链上能力。",
+    description:
+      "Configure MCP in your IDE or repo; drive on-chain capabilities with Router Keys.",
     platforms: [
       {
         id: "claude-code",
@@ -68,9 +70,10 @@ const categories: AgentCategory[] = [
   },
   {
     id: "collab",
-    title: "智能体协作",
+    title: "Workflows & multi-agent",
     titleEn: "Orchestration",
-    description: "工作流与多 Agent 编排，同一套 antalpha-mcp 端点。",
+    description:
+      "Workflows and multi-agent orchestration on the same antalpha-mcp endpoint.",
     platforms: [
       {
         id: "openclaw",
@@ -147,14 +150,15 @@ export function AgentPlatformsBand() {
           Works with your favorite agent platforms
         </p>
         <p className="mt-2 text-base text-muted-foreground">
-          个人智能体、编程智能体、协作工具——同一套 Router / MCP
+          Personal agents, coding agents, and collaboration tools—one Router / MCP stack
         </p>
         <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground/90">
-          在 Agent 的 MCP 或 Skills 配置中启用{" "}
+          Enable{" "}
           <code className="rounded bg-secondary/60 px-1.5 py-0.5 font-mono text-xs text-blue-400">
             antalpha-mcp
           </code>{" "}
-          或安装相关 Skill，即可接入上文 Router Key。
+          in your Agent’s MCP or Skills settings, or install the related Skills, to use the Router
+          Keys above.
         </p>
       </div>
 

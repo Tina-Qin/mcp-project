@@ -1,10 +1,11 @@
 "use client"
 
+import Link from "next/link"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ParticleBackground } from "./particle-background"
 
-/** 与首屏聊天区共用背景层 */
+/** Shared background layer with first-screen chat */
 export function HeroBackground() {
   return (
     <>
@@ -18,7 +19,7 @@ export function HeroBackground() {
 
 type HeroLeadVariant = "split" | "centered";
 
-/** 首屏主文案；`split` 时大屏左对齐（与右侧聊天并排），`centered` 为整页 Hero 居中 */
+/** First-screen hero copy; `split` left-aligns on large screens (chat on the right), `centered` is full-width hero */
 export function HeroLead({ variant = "split" }: { variant?: HeroLeadVariant }) {
   const split = variant === "split";
   return (
@@ -69,10 +70,13 @@ export function HeroLead({ variant = "split" }: { variant?: HeroLeadVariant }) {
       >
         <Button
           size="lg"
+          asChild
           className="group h-11 w-full bg-blue-600 font-mono text-sm font-semibold text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] sm:h-10 sm:w-auto"
         >
-          Build with MCP API
-          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <Link href="/docs">
+            Build with MCP API
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
         </Button>
         <Button
           size="lg"

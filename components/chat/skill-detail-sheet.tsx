@@ -23,14 +23,14 @@ function DetailBody({ detailKey }: { detailKey: string }) {
   const d = getSkillDetail(detailKey);
   if (!d) {
     return (
-      <p className="text-muted-foreground text-sm">暂无该 Skill 的详情配置。</p>
+      <p className="text-muted-foreground text-sm">No detail config for this Skill.</p>
     );
   }
   return (
     <div className="space-y-4 text-sm">
       <p className="text-foreground/90 leading-relaxed">{d.description}</p>
       <section>
-        <h4 className="mb-1.5 font-medium text-foreground">输入</h4>
+        <h4 className="mb-1.5 font-medium text-foreground">Inputs</h4>
         <ul className="text-muted-foreground list-inside list-disc space-y-1">
           {d.inputs.map((line) => (
             <li key={line}>{line}</li>
@@ -38,7 +38,7 @@ function DetailBody({ detailKey }: { detailKey: string }) {
         </ul>
       </section>
       <section>
-        <h4 className="mb-1.5 font-medium text-foreground">输出</h4>
+        <h4 className="mb-1.5 font-medium text-foreground">Outputs</h4>
         <ul className="text-muted-foreground list-inside list-disc space-y-1">
           {d.outputs.map((line) => (
             <li key={line}>{line}</li>
@@ -46,7 +46,7 @@ function DetailBody({ detailKey }: { detailKey: string }) {
         </ul>
       </section>
       <section>
-        <h4 className="mb-1.5 font-medium text-foreground">数据来源</h4>
+        <h4 className="mb-1.5 font-medium text-foreground">Data sources</h4>
         <ul className="text-muted-foreground list-inside list-disc space-y-1">
           {d.dataSources.map((line) => (
             <li key={line}>{line}</li>
@@ -54,7 +54,7 @@ function DetailBody({ detailKey }: { detailKey: string }) {
         </ul>
       </section>
       <section>
-        <h4 className="mb-1.5 font-medium text-foreground">MCP 配置示例</h4>
+        <h4 className="mb-1.5 font-medium text-foreground">Sample MCP config</h4>
         <pre
           className={cn(
             "max-h-48 overflow-auto rounded-md border border-border/60 bg-muted/50 p-3 font-mono text-xs leading-relaxed",
@@ -71,7 +71,7 @@ function DetailBody({ detailKey }: { detailKey: string }) {
             rel="noopener noreferrer"
             className="text-blue-400 underline-offset-4 hover:underline"
           >
-            仓库
+            Repository
           </Link>
         ) : null}
         {d.documentationUrl ? (
@@ -81,7 +81,7 @@ function DetailBody({ detailKey }: { detailKey: string }) {
             rel="noopener noreferrer"
             className="text-blue-400 underline-offset-4 hover:underline"
           >
-            文档 / 站点
+            Docs / site
           </Link>
         ) : null}
       </div>
@@ -103,9 +103,9 @@ export function SkillDetailSheet({
         className="w-full overflow-y-auto sm:max-w-lg"
       >
         <SheetHeader className="text-left">
-          <SheetTitle>Skill 详情</SheetTitle>
+          <SheetTitle>Skill details</SheetTitle>
           <SheetDescription>
-            能力说明与 MCP 安装片段；完整文档见外链。
+            Capability summary and MCP install snippet; full docs are linked below.
           </SheetDescription>
         </SheetHeader>
         <div className="px-4 pb-6">

@@ -31,7 +31,7 @@ const SKILL_LINKS: {
 
 function SkillLinksRow() {
   return (
-    <div className="flex flex-wrap items-center gap-2" aria-label="相关开源 Skill 仓库">
+    <div className="flex flex-wrap items-center gap-2" aria-label="Open-source Skill repositories">
       {SKILL_LINKS.map(({ id, label, href, Icon }) => (
         <a
           key={id}
@@ -50,7 +50,7 @@ function SkillLinksRow() {
 
 type NinaChatPanelAlign = "centered" | "split";
 
-/** 赛博聊天 + Skill pills；`split` 时标题在大屏与左侧文案对齐 */
+/** Cyber chat + Skill pills; with `split`, title aligns with left copy on large screens */
 export function NinaChatPanel({
   align = "centered",
   className,
@@ -90,7 +90,7 @@ export function NinaChatPanel({
         </div>
       </div>
 
-      <div className="w-full space-y-4 sm:space-y-5" aria-label="Skill 安装演示聊天区">
+      <div className="w-full space-y-4 sm:space-y-5" aria-label="Skill install demo chat">
         <div
           className={cn(
             "nina-chat-shell nina-chat-shell--compact w-full",
@@ -115,14 +115,14 @@ export function NinaChatPanel({
             align === "split" ? "text-center lg:text-left" : "text-center"
           )}
         >
-          AI SDK · MCP（mcp.prime.antalpha.com）· 演示动画（Skill 安装引导），非实时对话
+          AI SDK · MCP (mcp.prime.antalpha.com) · demo animation (Skill install guide), not live chat
         </p>
       </div>
     </div>
   );
 }
 
-/** 独立区块版（整宽居中）；首页首屏请用 `LandingFirstScreen` */
+/** Standalone section (full width, centered); use `LandingFirstScreen` for the first screen */
 export function NinaChatDemoSection() {
   return (
     <section className="relative shrink-0 border-t border-border/30 pb-6 pt-3 sm:pb-8 sm:pt-4">

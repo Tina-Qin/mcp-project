@@ -61,10 +61,10 @@ export function NinaLiveChat() {
     const text = buildCombinedInstallSnippet(skills);
     void navigator.clipboard.writeText(text).then(
       () => {
-        toast.success("已复制 MCP 配置到剪贴板");
+        toast.success("MCP config copied to clipboard");
       },
       () => {
-        toast.error("复制失败，请手动选择配置文本");
+        toast.error("Copy failed—select the config text manually");
       },
     );
   }
@@ -83,9 +83,9 @@ export function NinaLiveChat() {
               className="rounded-full ring-1 ring-border/60"
             />
             <div>
-              <h1 className="font-semibold tracking-tight">Nina · 真实对话</h1>
+              <h1 className="font-semibold tracking-tight">Nina · Live chat</h1>
               <p className="text-muted-foreground text-xs">
-                连接 /api/chat，展示本次回复使用的 Skill
+                Connected to /api/chat; shows Skills used in each reply
               </p>
             </div>
           </div>
@@ -93,7 +93,7 @@ export function NinaLiveChat() {
             href="/"
             className="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
-            返回首页
+            Home
           </Link>
         </div>
       </header>
@@ -103,8 +103,8 @@ export function NinaLiveChat() {
         <div className="mx-auto flex max-w-3xl flex-col gap-4 pb-32">
           {messages.length === 0 ? (
             <p className="text-muted-foreground text-sm">
-              例如：介绍一下在售产品；或提供 0x
-              地址查询订单。若调用了工具，回复下方会出现「已使用 Skill」。
+              For example: ask about on-sale products, or give a 0x address to look up orders.
+              When tools run, “Skills used” appears below the reply.
             </p>
           ) : null}
 
@@ -177,7 +177,7 @@ export function NinaLiveChat() {
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="输入消息…"
+            placeholder="Type a message…"
             rows={3}
             disabled={busy}
             className="resize-none"
@@ -191,11 +191,11 @@ export function NinaLiveChat() {
           <div className="flex justify-end gap-2">
             {busy ? (
               <Button type="button" variant="outline" onClick={() => void stop()}>
-                停止
+                Stop
               </Button>
             ) : null}
             <Button type="submit" disabled={busy || !input.trim()}>
-              发送
+              Send
             </Button>
           </div>
         </form>

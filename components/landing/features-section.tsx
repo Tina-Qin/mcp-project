@@ -4,21 +4,21 @@ const features = [
   {
     icon: Globe,
     title: "One API, Multi-Chain",
-    titleCn: "一次接入，多链通用",
+    subtitle: "One integration, every chain",
     description:
       "Connect once, access everywhere. Route requests seamlessly across Ethereum, BSC, Base, Arbitrum, and 50+ chains.",
   },
   {
     icon: Cpu,
     title: "Smart Routing Engine",
-    titleCn: "智能策略引擎",
+    subtitle: "Policy-aware routing",
     description:
       "AI-powered routing automatically finds optimal paths, compares prices, and selects the best execution strategy.",
   },
   {
     icon: Shield,
     title: "Zero Downtime Fallback",
-    titleCn: "容错高可用",
+    subtitle: "Resilient & highly available",
     description:
       "Enterprise-grade reliability with automatic failover. Primary node fails? We switch instantly to backups.",
   },
@@ -58,7 +58,7 @@ export function FeaturesSection() {
                 {feature.title}
               </h3>
               <p className="mb-4 font-mono text-xs text-blue-500">
-                {feature.titleCn}
+                {feature.subtitle}
               </p>
 
               {/* Description */}

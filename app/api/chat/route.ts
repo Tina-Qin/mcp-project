@@ -39,7 +39,7 @@ function createAntalphaPrimeTools(baseUrl: string): ToolSet {
   return {
     "list-products": tool({
       description:
-        "List current Antalpha Prime RWA products (on-sale offerings, yields, terms). Use when the user asks about products, 在售, 产品介绍, or subscription options.",
+        "List current Antalpha Prime RWA products (on-sale offerings, yields, terms). Use when the user asks about products, on-sale listings, product overview, or subscription options.",
       inputSchema: z.object({
         context: z
           .string()
@@ -76,7 +76,7 @@ export async function POST(req: Request) {
     return Response.json(
       {
         error:
-          "缺少 LLM API Key：请在 .env.local 中设置 NEW_API_KEY 或 OPENAI_API_KEY（见 docs/env-chat.example）。",
+          "Missing LLM API key: set NEW_API_KEY or OPENAI_API_KEY in .env.local (see docs/env-chat.example).",
       },
       { status: 503 },
     );
@@ -116,7 +116,7 @@ export async function POST(req: Request) {
   const baseSystem = `Your name is Nina. You are an assistant for Antalpha Prime RWA (on-chain real-world-asset style) products and general Web3 questions.
 
 **Products & guidance**
-- When the user asks about products, what's on sale, rates, "介绍一下产品", 在售产品, or similar: call **list-products** with a short **context** string summarizing their question, then summarize tool output in clear markdown (use tables when comparing multiple products). If the tool returns empty, say so and suggest they try again later.
+- When the user asks about products, what's on sale, rates, product intro, on-sale products, or similar (including Chinese): call **list-products** with a short **context** string summarizing their question, then summarize tool output in clear markdown (use tables when comparing multiple products). If the tool returns empty, say so and suggest they try again later.
 - If they share an Ethereum address (0x...) and want order status: use **query-orders-by-address** with that address.
 - Guide step by step: prefer self-custody wallets (not exchange deposit addresses), USDT on Ethereum per product rules, risks (returns not guaranteed, funds typically locked until maturity), and never ask for private keys or seed phrases.
 - For payment links / subscribe flows, follow the SKILL.md instructions (e.g. local \`python3 scripts/rwa_client.py subscribe\` paths under the project's \`src/assets/antalpha-rwa-skill/\`).

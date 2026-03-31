@@ -27,49 +27,49 @@ const CHAT_SCENARIOS: ChatDemoScenario[] = [
   {
     id: "s1-install",
     headerStripe: "SKILL · INSTALL",
-    userPrompt: "我想给自己的 Agent 装上 antalpha-rwa-skill，要怎么操作？",
+    userPrompt: "How do I install antalpha-rwa-skill on my Agent?",
     assistantLines: [
-      "推荐两步：① 打开 GitHub 上的 `antalpha-rwa-skill` 仓库，按 README 把技能包加入你的 Agents / Cursor 技能列表；② 或在客户端接入官方 MCP（mcp.prime.antalpha.com），启用 `antalpha-rwa` 后保存并重载 Agent。装好后你的助理就能按 SKILL 约定调用 RWA 相关能力。",
+      "Two steps: ① Open the `antalpha-rwa-skill` repo on GitHub and follow the README to add the skill pack to your Agents / Cursor skills list; ② or point your client at the official MCP (`mcp.prime.antalpha.com`), enable `antalpha-rwa`, save, and reload the Agent. After that, your assistant can call RWA capabilities per the SKILL contract.",
     ],
   },
   {
     id: "s2-mcp-only",
     headerStripe: "MCP · CONNECT",
-    userPrompt: "不想拷仓库，只用 MCP 可以吗？",
+    userPrompt: "Can I skip cloning the repo and use MCP only?",
     assistantLines: [
-      "可以。配置 MCP 指向 `mcp.prime.antalpha.com`，在可用技能里勾选 `antalpha-rwa`，保存后重载即可；无需本地 clone，工具与约定仍以官方 SKILL 为准。",
+      "Yes. Set MCP to `mcp.prime.antalpha.com`, enable `antalpha-rwa` in available skills, save, and reload—no local clone required; tools and conventions still follow the official SKILL.",
     ],
   },
   {
     id: "s3-why",
     headerStripe: "SKILL · HIGHLIGHT",
-    userPrompt: "为什么先装 antalpha-rwa-skill？",
+    userPrompt: "Why install antalpha-rwa-skill first?",
     assistantLines: [
-      "这是我们为 RWA 固收与链上认购场景主推的开源 Skill：把产品说明、认购与风控要点封装成 Agent 可调用的能力，和本站 MCP 一致，最适合快速搭一个「会讲 RWA」的 Web Agent。",
+      "It is our open-source Skill for RWA fixed-income and on-chain subscription flows: product docs, subscription, and risk controls in one callable surface—aligned with this site’s MCP and fastest to ship a Web Agent that talks RWA fluently.",
     ],
   },
   {
     id: "s4-repo",
     headerStripe: "GITHUB · REPO",
-    userPrompt: "仓库地址发我一下。",
+    userPrompt: "Send me the repo link.",
     assistantLines: [
-      "开源地址：`https://github.com/AntalphaAI/antalpha-rwa-skill`。建议 Star 后按文档安装；页面下方也有 antalpha-rwa-skill 快捷入口，可一键跳到仓库开始装。",
+      "Open source: `https://github.com/AntalphaAI/antalpha-rwa-skill`. Star it and follow the docs to install; the page below also has quick links to jump straight to the repo.",
     ],
   },
   {
     id: "s5-troubleshoot",
     headerStripe: "AGENT · RELOAD",
-    userPrompt: "装好了但对话里没反应？",
+    userPrompt: "I installed it but nothing happens in chat?",
     assistantLines: [
-      "先确认技能已写入 Agent 配置并已保存；若走 MCP，检查端点与网络。仍无工具时，重启客户端或重载 Agent，并核对技能 ID 是否为 `antalpha-rwa`。",
+      "Confirm the skill is written to your Agent config and saved; if MCP, check endpoint and network. If tools still don’t appear, restart the client or reload the Agent and verify the skill id is `antalpha-rwa`.",
     ],
   },
   {
     id: "s6-more-skills",
     headerStripe: "SKILLS · ECOSYSTEM",
-    userPrompt: "除了 RWA，还能装别的 Skill 吗？",
+    userPrompt: "Besides RWA, can I install other Skills?",
     assistantLines: [
-      "可以。同一套方式可叠加 web3-trader、wallet-balance 等开源 Skill；若你的场景以 RWA 为主，仍建议优先装好 antalpha-rwa-skill，再按需扩展。",
+      "Yes. You can stack web3-trader, wallet-balance, and other open-source Skills the same way; if RWA is your main use case, keep antalpha-rwa-skill installed first, then add more as needed.",
     ],
   },
 ];
@@ -215,7 +215,7 @@ export function CyberMcpChatDemo() {
             />
             <div className="flex min-w-0 flex-col gap-0.5">
               <span className="truncate text-sm font-semibold leading-tight text-zinc-100">Nina</span>
-              <span className="text-[11px] leading-none text-emerald-400/90">在线</span>
+              <span className="text-[11px] leading-none text-emerald-400/90">Online</span>
             </div>
           </div>
           <span className="af-cyber-chat-header-context" title={scenario.headerStripe}>

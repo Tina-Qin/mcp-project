@@ -3,7 +3,7 @@
 import { HeroBackground, HeroLead } from "@/components/landing/hero-section";
 import { NinaChatPanel } from "@/components/landing/nina-chat-demo-section";
 
-/** 首屏：上文案 + 下聊天（纵向堆叠，居中，避免左右分栏过窄） */
+/** First screen: copy on top + chat below (stacked, centered; avoids overly narrow split columns) */
 export function LandingFirstScreen() {
   return (
     <section

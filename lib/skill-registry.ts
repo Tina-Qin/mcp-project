@@ -21,11 +21,11 @@ type RegistryRow = {
   mcpSnippet: string;
   repositoryUrl?: string;
   documentationUrl?: string;
-  /** 与 `loadAgentsSkills` / 仓库一致的 Skill 包名，如 antalpha-rwa */
+  /** Skill package name aligned with `loadAgentsSkills` / repo, e.g. antalpha-rwa */
   agentsSkillPackage: string;
-  /** MCP 配置中的 server 键，如 antalpha-prime */
+  /** MCP server key in config, e.g. antalpha-prime */
   mcpServerKey: string;
-  /** 实际连接的 MCP HTTP 端点 */
+  /** Actual MCP HTTP endpoint URL */
   mcpEndpointUrl: string;
 };
 
@@ -91,11 +91,11 @@ export type ResolvedSkill = {
   documentationUrl?: string;
   /** Tool names in this turn that mapped to this skill */
   sourceToolNames: string[];
-  /** SKILL 包 / 仓库侧名称 */
+  /** Skill package / repo name */
   agentsSkillPackage: string;
-  /** MCP 配置里的 server 键 */
+  /** Server key in MCP config */
   mcpServerKey: string;
-  /** 实际 MCP 端点 */
+  /** MCP endpoint URL */
   mcpEndpointUrl: string;
 };
 
@@ -138,16 +138,16 @@ export const SKILL_DETAILS: Record<string, SkillDetailContent> = {
   "antalpha-rwa": {
     title: "Antalpha RWA",
     description:
-      "通过 Antalpha Prime MCP 查询在售 RWA 产品、认购规则，以及按以太坊地址查询订单。适用于产品介绍、认购流程与订单核对等场景。",
+      "Query on-sale RWA products and subscription rules via Antalpha Prime MCP, and look up orders by Ethereum address. Use for product overviews, subscription flows, and order checks.",
     inputs: [
-      "list-products：参数 context（对用户问题的简短复述，满足 JSON 输入要求）。",
-      "query-orders-by-address：参数 address（0x 开头的 40 位十六进制以太坊地址）。",
+      "list-products: parameter `context` (short restatement of the user’s question for valid JSON input).",
+      "query-orders-by-address: parameter `address` (0x-prefixed 40-character hex Ethereum address).",
     ],
     outputs: [
-      "产品列表：在售产品、收益率、期限、网络与代币等结构化数据。",
-      "订单查询：与该地址相关的订单摘要（以接口返回为准）。",
+      "Product list: structured data for on-sale products, yields, tenor, network, and token.",
+      "Order query: order summary for that address (per API response).",
     ],
-    dataSources: ["Antalpha Prime 后端 / MCP"],
+    dataSources: ["Antalpha Prime backend / MCP"],
     mcpSnippet: SNIPPET_ANTALPHA_PRIME,
     repositoryUrl: "https://github.com/AntalphaAI/antalpha-rwa-skill",
     documentationUrl: "https://github.com/AntalphaAI/antalpha-rwa-skill",
@@ -155,10 +155,10 @@ export const SKILL_DETAILS: Record<string, SkillDetailContent> = {
   "web3-mcp-fallback": {
     title: "Web3 Skills (MCP)",
     description:
-      "来自 Antalpha Web3 Skills MCP 的动态工具（工具名随服务版本变化）。用于链上数据、地址画像等扩展能力；具体能力以当前 MCP 暴露的 tools 为准。",
-    inputs: ["依具体工具而定（由模型根据用户问题选择调用）。"],
-    outputs: ["依具体工具返回的结构化或文本结果。"],
-    dataSources: ["Web3 Skills MCP 聚合的数据提供方（随工具而异）"],
+      "Dynamic tools from Antalpha Web3 Skills MCP (tool names may change with the service version). For on-chain data, address profiles, and other extensions; see the tools currently exposed by the MCP.",
+    inputs: ["Depends on the tool (the model chooses calls based on the user’s question)."],
+    outputs: ["Structured or text results per tool."],
+    dataSources: ["Data providers aggregated by Web3 Skills MCP (varies by tool)"],
     mcpSnippet: SNIPPET_WEB3_SKILLS,
     repositoryUrl: "https://github.com/AntalphaAI",
     documentationUrl: "https://mcp-skills.prime.antalpha.com",

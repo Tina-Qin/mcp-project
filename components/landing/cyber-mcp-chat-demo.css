@@ -326,7 +326,7 @@
   }
 }
 
-/* 首屏右栏：与左侧并排时略增高聊天区 */
+/* First-screen right column: slightly taller chat when beside left column */
 @media (min-width: 1024px) {
   .nina-chat-shell--split .af-cyber-chat-window {
     height: min(360px, 52vh);

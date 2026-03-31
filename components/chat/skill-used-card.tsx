@@ -15,11 +15,11 @@ function SkillFacts({ s }: { s: ResolvedSkill }) {
 
   return (
     <dl className="text-muted-foreground mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-xs">
-      <dt className="text-muted-foreground/90 shrink-0">Skill 包</dt>
+      <dt className="text-muted-foreground/90 shrink-0">Skill package</dt>
       <dd className="min-w-0 font-mono text-[13px] text-foreground/90">
         {s.agentsSkillPackage}
       </dd>
-      <dt className="text-muted-foreground/90 shrink-0">调用工具</dt>
+      <dt className="text-muted-foreground/90 shrink-0">Tools used</dt>
       <dd className="min-w-0 font-mono text-[13px] text-foreground/90 break-all">
         {tools}
       </dd>
@@ -43,7 +43,7 @@ export function SkillUsedCard({
   return (
     <div className="mt-3 rounded-lg border border-border/60 bg-muted/30 px-3 py-2.5 text-sm">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
-        <span className="text-muted-foreground shrink-0">已使用 Skill:</span>
+        <span className="text-muted-foreground shrink-0">Skills used:</span>
         <div className="flex flex-wrap gap-1.5">
           {skills.map((s) => (
             <Badge
@@ -77,7 +77,7 @@ export function SkillUsedCard({
           className="h-auto p-0 text-xs text-blue-400"
           onClick={onViewDetails}
         >
-          查看详情
+          View details
         </Button>
         <Button
           type="button"
@@ -85,7 +85,7 @@ export function SkillUsedCard({
           className="h-auto p-0 text-xs text-blue-400"
           onClick={onInstall}
         >
-          安装到我的 Agent
+          Install in my Agent
         </Button>
       </div>
     </div>
